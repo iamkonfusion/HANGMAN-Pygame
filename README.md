@@ -1,2 +1,0 @@
-# HANGMAN-Pygame
-Code Python
