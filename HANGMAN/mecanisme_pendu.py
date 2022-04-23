@@ -33,7 +33,7 @@ screen.blit(hangman, (106,133))
 pygame.display.flip()
 
 
-debutant = {"blue":"bleu",
+debutant_adj = {"blue":"bleu",
             "difficult":"difficile",
             "other":"autre",
             "weird":"bizarre",
@@ -88,7 +88,7 @@ while HANGMAN:
                 screen.blit(background,(0,0))
                 pygame.display.flip()
                 
-                debutant, keys_debutant, mots_appris, word_et_trad = random_word(debutant)
+                debutant, keys_debutant, mots_appris, word_et_trad = random_word(debutant_adj)
 
                 word, traduction = creation_liste_caractere((word_et_trad))
                 display_word, display_trad = conversion_tirets(word, traduction)
