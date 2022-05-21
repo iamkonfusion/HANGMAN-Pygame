@@ -18,11 +18,8 @@ bgm.play(-1)
 
 well_done = pygame.image.load('design/ingame/well_done.png')
 try_again = pygame.image.load('design/ingame/try_again.png')
-clock = pygame.time.Clock()
 
 screen.blit(pygame.transform.smoothscale(background, size),(0,0))
-
-
 
 """
 font = pygame.font.Font("bryndan-write-font/BryndanWrite.ttf", 97)
@@ -54,6 +51,7 @@ debutant_adj = {"blue":"bleu",
 font = pygame.font.Font("bryndan-write-font/BryndanWrite.ttf", 97)
 color_values = r, g, b = (94,102,151) # ORIGINAL 'HANGMAN.' COLOR VALUES
 color_values = r, g, b = (248,251,255) # couleur background
+clock = pygame.time.Clock()
 
 while not (r < 94 and g < 102 and b < 151):
     if not r < 94 :
@@ -81,7 +79,7 @@ while HANGMAN:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             Running = True
-
+            
             while Running :
 
                 screen.blit(background,(0,0))
@@ -93,16 +91,17 @@ while HANGMAN:
                 display_word, display_trad = conversion_tirets(word, traduction)
                 lettres_deja_rentrees = []
 
+                coord_tirets = (170,100)
                 font_ingame = pygame.font.Font("bryndan-write-font/BryndanWrite.ttf", 45)
                 affichage_word_trad = " ".join(display_word) + " = " + " ".join(display_trad)
-                screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), (350,260))
+                screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), coord_tirets)
                 pygame.display.flip()
 
                 font_not_ingame = pygame.font.Font("bryndan-write-font/BryndanWrite.ttf", 30)
 
+
                 mot_complet = False
                 points = 0
-                
                 while points != 10 and not mot_complet:
 
                     for event in pygame.event.get():
@@ -121,13 +120,13 @@ while HANGMAN:
 
                                 screen.blit(pygame.transform.smoothscale(background, size),(0,0))
                                 affichage_word_trad = " ".join(display_word) + " = " + " ".join(display_trad)
-                                screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), (350,260))
+                                screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), coord_tirets)
                                 pygame.display.flip()
 
 
                             else:
                                 screen.blit(pygame.transform.smoothscale(background, size),(0,0))
-                                screen.blit(font_ingame.render("Mauvaise lettre !", True, (r,g,b)), (350,260))
+                                screen.blit(font_ingame.render("Mauvaise lettre !", True, (r,g,b)), coord_tirets)
                                 points += 1
                                 
                                 if points == 10:
