@@ -21,6 +21,7 @@ sfx_mauvaise_lettre.set_volume(0.5)
 
 well_done = pygame.image.load('design/ingame/well_done.png')
 try_again = pygame.image.load('design/ingame/try_again.png')
+choisir_lettre_seulement = pygame.image.load('design/ingame/choisir_lettre_seulement.png')
 
 screen.blit(pygame.transform.smoothscale(background, size),(0,0))
 
@@ -51,7 +52,7 @@ debutant_adj = {"blue":"bleu",
             "sad":"triste"}
 
 font = pygame.font.Font("bryndan-write-font/BryndanWrite.ttf", 97)
-color_values = r, g, b = (94,102,151) # ORIGINAL 'HANGMAN.' COLOR VALUES
+# color_values = r, g, b = (94,102,151) # ORIGINAL COLOR VALUES
 color_values = r, g, b = (248,251,255) # couleur background
 clock = pygame.time.Clock()
 
@@ -86,6 +87,9 @@ while HANGMAN:
 
                 screen.blit(background,(0,0))
                 pygame.display.flip()
+
+                alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m",
+                            "n","o","p","q","r","s","t","u","v","w","x","y","z"]
                 
                 debutant, keys_debutant, mots_appris, word_et_trad = random_word(debutant_adj)
 
@@ -100,7 +104,6 @@ while HANGMAN:
                 pygame.display.flip()
 
                 font_not_ingame = pygame.font.Font("bryndan-write-font/BryndanWrite.ttf", 30)
-
 
                 mot_complet = False
                 fautes = 0
@@ -119,52 +122,61 @@ while HANGMAN:
                             exit()
                             Running = False
                             
-                        if event.type == pygame.KEYDOWN:
-                            lettre = str(event)[32]
-
-                            if lettre in word or lettre in traduction:
-                                for i in range(len(word)):
-                                    if word[i] == lettre:
-                                        display_word[i] = lettre
-
-                                for j in range(len(traduction)):
-                                    if traduction[j] == lettre:
-                                        display_trad[j] = lettre
-
-                                screen.blit(pygame.transform.smoothscale(background, size),(0,0))
-                                affichage_word_trad = " ".join(display_word) + " = " + " ".join(display_trad)
-                                screen.blit(font_ingame.render(str(fautes), 1 , (94, 102, 151)),(850,450)) # ajout !
-                                screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), coord_tirets)
-                                pygame.display.flip()
-
-                            else:
+                        if event.type == pygame.KEYDOWN :
+                            if not str(event)[32] in alphabet:
                                 sfx_mauvaise_lettre.play()
-                                fautes += 1
-                                screen.blit(pygame.transform.smoothscale(background, size),(0,0))
-                                screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), coord_tirets)
-                                screen.blit(font_ingame.render(str(fautes), 1 , (94, 102, 151)),(850,450)) # ajout !
-                                screen.blit(font_ingame.render("Mauvaise lettre !", True, (r,g,b)), (350,260))
+                                screen.blit(choisir_lettre_seulement, (200,290))
+                                screen.blit(font_not_ingame.render("Entrez une lettre et pas autre chose", True, (r,g,b)), (250,260))
                                 pygame.display.flip()
                                 pygame.time.wait(400)
                                 
-                                if fautes == 10:
-                                    screen.blit(pygame.transform.smoothscale(try_again, size),(0,0))
-                                    screen.blit(font_not_ingame.render("Perdu ! Retentez :) ", True, (r,g,b)), (350,50))
+
+                            else:
+                                lettre = str(event)[32]
+
+                                if lettre in word or lettre in traduction:
+                                    for i in range(len(word)):
+                                        if word[i] == lettre:
+                                            display_word[i] = lettre
+
+                                    for j in range(len(traduction)):
+                                        if traduction[j] == lettre:
+                                            display_trad[j] = lettre
+
+                                    screen.blit(pygame.transform.smoothscale(background, size),(0,0))
+                                    affichage_word_trad = " ".join(display_word) + " = " + " ".join(display_trad)
+                                    screen.blit(font_ingame.render(str(fautes), 1 , (94, 102, 151)),(850,450)) # ajout !
+                                    screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), coord_tirets)
                                     pygame.display.flip()
 
-                            print (display_word, "=", display_trad, "\n Fautes :", fautes)
+                                else:
+                                    sfx_mauvaise_lettre.play()
+                                    fautes += 1
+                                    screen.blit(pygame.transform.smoothscale(background, size),(0,0))
+                                    screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), coord_tirets)
+                                    screen.blit(font_ingame.render(str(fautes), 1 , (94, 102, 151)),(850,450)) # ajout !
+                                    screen.blit(font_ingame.render("Mauvaise lettre !", True, (r,g,b)), (350,260))
+                                    pygame.display.flip()
+                                    pygame.time.wait(400)
+                                    
+                                    if fautes == 10:
+                                        screen.blit(pygame.transform.smoothscale(try_again, size),(0,0))
+                                        screen.blit(font_not_ingame.render("Perdu ! Retentez :) ", True, (r,g,b)), (350,50))
+                                        pygame.display.flip()
 
-                            if word == display_word and traduction == display_trad :
-                                mot_complet = True
-                                screen.blit(pygame.transform.smoothscale(well_done, size),(0,0))
-                                screen.blit(font_not_ingame.render("Well done!", True, (r,g,b)), ((385,60)))
-                                pygame.display.flip()
+                                print (display_word, "=", display_trad, "\n Fautes :", fautes)
 
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                pygame.display.quit()
-                                exit()
-                                Running = False
+                                if word == display_word and traduction == display_trad :
+                                    mot_complet = True
+                                    screen.blit(pygame.transform.smoothscale(well_done, size),(0,0))
+                                    screen.blit(font_not_ingame.render("Well done!", True, (r,g,b)), ((385,60)))
+                                    pygame.display.flip()
+
+                                if event.type == pygame.QUIT:
+                                    pygame.quit()
+                                    pygame.display.quit()
+                                    exit()
+                                    Running = False
                                 
                 Running = False                 
 
