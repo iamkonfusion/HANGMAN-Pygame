@@ -170,31 +170,3 @@ while HANGMAN:
 
 pygame.quit()
 exit()
-
-"""
-
-Running = True
-while Running :
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            # pygame.display.quit()
-            exit()
-            running = False
-
-        elif event.type == pygame.VIDEORESIZE:
-            screen = pygame.display.set_mode(event.dict['size'], pygame.RESIZABLE)
-            screen.blit(pygame.transform.scale(background, event.dict['size']), (0, 0))
-            screen.blit(hangman, (106,133))
-            screen.blit(jeu_du_pendu_educatif, (339,229))
-            screen.blit(tap_here_to_start, (190, 400))
-            pygame.display.flip()
-
-        if event.type == pygame.KEYDOWN:            # registers 'pressed key' events
-            if event.key == pygame.K_SPACE:
-                print('Spacebar was pressed')
-
-    pygame.display.flip()
-
-"""
