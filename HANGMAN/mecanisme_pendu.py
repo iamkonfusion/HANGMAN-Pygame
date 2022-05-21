@@ -1,7 +1,6 @@
 import pygame
 from sys import exit
 from Fonctions import *
-from unidecode import unidecode
 
 pygame.init()
 pygame.font.init()
