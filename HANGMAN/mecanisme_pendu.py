@@ -16,6 +16,9 @@ bgm = pygame.mixer.Sound('audio/happy.mp3')
 bgm.set_volume(0.5)
 bgm.play(-1)
 
+sfx_mauvaise_lettre = pygame.mixer.Sound('audio/sfx_mauvaise_lettre.mp3')
+sfx_mauvaise_lettre.set_volume(0.5)
+
 well_done = pygame.image.load('design/ingame/well_done.png')
 try_again = pygame.image.load('design/ingame/try_again.png')
 
@@ -135,6 +138,7 @@ while HANGMAN:
                                 pygame.display.flip()
 
                             else:
+                                sfx_mauvaise_lettre.play()
                                 fautes += 1
                                 screen.blit(pygame.transform.smoothscale(background, size),(0,0))
                                 screen.blit(font_ingame.render(affichage_word_trad, True, (r,g,b)), coord_tirets)
