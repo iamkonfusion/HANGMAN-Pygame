@@ -15,7 +15,7 @@ background = pygame.image.load('design/background.png')
 
 bgm = pygame.mixer.Sound('audio/happy.mp3')
 bgm.set_volume(0.5)
-bgm.play()
+bgm.play(-1)
 
 well_done = pygame.image.load('design/ingame/well_done.png')
 try_again = pygame.image.load('design/ingame/try_again.png')
