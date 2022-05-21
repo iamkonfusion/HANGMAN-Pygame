@@ -117,7 +117,7 @@ while HANGMAN:
                             pygame.quit()
                             pygame.display.quit()
                             exit()
-                            running = False
+                            Running = False
                             
                         if event.type == pygame.KEYDOWN:
                             lettre = str(event)[32]
@@ -164,7 +164,7 @@ while HANGMAN:
                                 pygame.quit()
                                 pygame.display.quit()
                                 exit()
-                                running = False
+                                Running = False
                                 
                 Running = False                 
 
